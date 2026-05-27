@@ -1,0 +1,29 @@
+services:
+  orchestrator:
+    build:
+      context: .
+      target: orchestrator
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - MCP_SERVER_URL=http://mcp-server:8001
+    depends_on:
+      mcp-server:
+        condition: service_started
+    restart: unless-stopped
+
+  mcp-server:
+    build:
+      context: .
+      target: mcp-server
+    ports:
+      - "8001:8001"
+    environment:
+      - MCP_WORKSPACE_ROOT=/workspace
+    volumes:
+      - agentforge-workspace:/workspace
+    restart: unless-stopped
+
+volumes:
+  agentforge-workspace:
