@@ -120,6 +120,10 @@ async def approve_action(task_id: str, request: ApprovalRequest) -> ApprovalResp
     state.approved = request.approved
     state.pending_approval = False
 
+    if request.reason:
+        from langchain_core.messages import HumanMessage
+        state.messages.append(HumanMessage(content=f"Human checkpoint feedback: {request.reason}"))
+
     action = "approved" if request.approved else "denied"
     logger.info("Task %s: human %s action. Re-invoking graph to resume.", task_id, action)
 

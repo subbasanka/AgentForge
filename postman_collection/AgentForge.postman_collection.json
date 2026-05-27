@@ -120,7 +120,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"task_id\": \"{{task_id}}\",\r\n    \"approved\": true\r\n}",
+          "raw": "{\r\n    \"task_id\": \"{{task_id}}\",\r\n    \"approved\": true\r\n    \"reason\": \"Proceed with the research\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
