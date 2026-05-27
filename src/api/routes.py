@@ -69,10 +69,10 @@ async def get_run_status(task_id: str) -> RunStatus:
     task: asyncio.Task | None = _active_runs[task_id].get("task")
 
     status = state.status
-    if task and task.done():
-        status = "completed" if state.completed else "failed"
-    elif state.pending_approval:
+    if state.pending_approval:
         status = "awaiting_approval"
+    elif task and task.done():
+        status = "completed" if state.completed else "failed"
     elif task and not task.done():
         status = "running"
 
